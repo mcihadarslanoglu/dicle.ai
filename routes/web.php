@@ -24,10 +24,9 @@ Route::post('register', 'App\Http\Controllers\registrationController@store');
 Route::get("checkLogin", function(){
     return "<h1>".Auth::id()."</h1>";
 });
-//Route::get('/login', 'SessionsController@create');
-//Route::post('/login', 'SessionsController@store');
 
-Route::get('/logout', 'App\Http\Controllers\registrationController@logout'); 
+
+Route::get('/logout', 'App\Http\Controllers\logoutController@logout'); 
  
  
  

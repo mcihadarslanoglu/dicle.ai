@@ -5,15 +5,12 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+//use App\Https\loginController;
 use Auth;
 class registrationController extends Controller
 
 {
-   /* private $username;
-    private $password;
-    private $email;
-    private $foldername;
-*/
+
     public function create()
     {
         return view('create');
@@ -21,11 +18,17 @@ class registrationController extends Controller
 
     public function store()
     {
+        /*-----------------------------------------*/
+        /*frontend tarafından gelen kayıt olma verileri belirtilen şartlara göre kontrol edilir. Eğer veriler belirlenen şartları
+        *sağlamıyorsa o halde kayıt işlemi yapılmaz ve kullanıcı sayfası tekrar /register sayfasına yönlendirilir(Route)
+        */
         $this->validate(request(), [
             'username' => 'required',
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required '
         ]);
+        /*-----------------------------------------*/
+
         /*-----------------------------------------*/
         /*Kullanıcı verilerinin veritabanına kayıt edilmesi için request fonksiyonu ile değişkenlere atanır.*/ 
         $username = request()->input('username');
@@ -37,7 +40,7 @@ class registrationController extends Controller
         /*Kullanıcı adına oluşturulan klasörün ismini rastgele seçmek için kullanıcı adı ve email adresi bir hash algoritmasından geçirilir.*/
         $foldername = hash('sha256',$username.$email);
         /*-----------------------------------------*/
-        
+        return $this->isUser($email);
         /*-----------------------------------------*/
         /*Kullanıcı bilgilerinin veritabanında saklanması için bir SQL sorgusu yapılır.*/
         DB::table('users')->insert(
@@ -45,22 +48,29 @@ class registrationController extends Controller
         );
         /*-----------------------------------------*/
 
+        /*-----------------------------------------*/
+        /*Giriş yapma işlemi için kullanıcı bilgileri credentials değişkenine atanır.
+        *Daha sonra loginController içerisindeki public static fonksiyon çağırılarak kullanıcıyı sisteme giriş yaptırılır.
+        *credentials değişkeni kullanıcının email ve password bilgilerini içerir.
+        */
         $credentials = request()->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('checkLogin')
-                        ->withSuccess('Logged-in');
-        }
-        return redirect("login")->withSuccess('Credentials are wrong.'); 
-        
-
-        //https://stackoverflow.com/questions/39118995/difference-between-laravel-dbinsert-and-dbtable-insert
+        //return redirect()->to("checkLogin");
+        return loginController::login($credentials);
+        /*-----------------------------------------*/
+       
+    
       
         
     }
-    function logout(){
-        Auth::logout();
-        return redirect("checkLogin");
+
+    function isUser($email){
+        
+        if(User::where('email','=',$email)->exists()){
+
+            return True;
+        }
     }
+    
 } 
  
  
