@@ -9,7 +9,7 @@ use Auth;
 
 class loginController extends Controller{
 
-    public static function login($credentials){
+    public static function loginWithParameters($credentials){
 
         
         /*-----------------------------------------*/
@@ -34,6 +34,26 @@ class loginController extends Controller{
              */
             
         } 
+    }
+    /*-----------------------------------------*/
+
+    /*-----------------------------------------*/
+    /**
+     * Eğer giriş yapma işlemi request, yani form ile yapılacaksa bu fonksiyon kullanılır.
+     */
+    function loginWithRequest(){
+
+        Auth::attempt(request()->only(['email','password']));
+        return redirect()->to('checkLogin');
+    }
+    /*-----------------------------------------*/
+
+    /*-----------------------------------------*/
+    /**
+     * Bu fonksiyon kullanıcının form bilgilerini doldurabileceği bir sayfaya yönlendirir.
+     */
+    function loginView(){
+        return view('login');
     }
 
 

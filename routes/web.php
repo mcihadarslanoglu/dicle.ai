@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registrationController;
 use App\Http\Controllers;
+use App\Http\Controllers\loginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +18,20 @@ use App\Http\Controllers;
 
 
 
+Route::get('/', function(){
+    return 'home';
+});
+Route::post('/', function(){
+    return 'home';
+});
 
-Route::get('/register', 'App\Http\Controllers\registrationController@create');
-Route::post('register', 'App\Http\Controllers\registrationController@store');
+Route::get('/register', 'App\Http\Controllers\registrationController@create')->name('/');
+Route::post('register', 'App\Http\Controllers\registrationController@store')->name('/');
+
+
+
+Route::get('/login',[loginController::class,'loginView'])->name('/');
+Route::post('login',[loginController::class,'loginWithRequest'])->name('/');
 
 Route::get("checkLogin", function(){
     return "<h1>".Auth::id()."</h1>";
@@ -27,7 +39,7 @@ Route::get("checkLogin", function(){
 
 
 Route::get('/logout', 'App\Http\Controllers\logoutController@logout'); 
- 
+Route::post('/logout', 'App\Http\Controllers\logoutController@logout'); 
  
  
  
