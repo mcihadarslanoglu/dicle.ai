@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registrationController;
 use App\Http\Controllers;
 use App\Http\Controllers\loginController;
+//include 'App\config\pathConfig.php';
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,23 +20,23 @@ use App\Http\Controllers\loginController;
 
 
 
-Route::get('/', function(){
+Route::get('/home', function(){
     return 'home';
 });
-Route::post('/', function(){
+Route::post('/home', function(){
     return 'home';
 });
 
-Route::get('/register', 'App\Http\Controllers\registrationController@create')->name('/');
-Route::post('register', 'App\Http\Controllers\registrationController@store')->name('/');
+Route::get('/register', 'App\Http\Controllers\registrationController@create')->middleware('guest');
+Route::post('register', 'App\Http\Controllers\registrationController@store')->middleware('guest');
 
+Route::get('/test', 'App\Http\Controllers\registrationController@test');
 
-
-Route::get('/login',[loginController::class,'loginView'])->name('/');
-Route::post('login',[loginController::class,'loginWithRequest'])->name('/');
+Route::get('/login',[loginController::class,'loginView'])->name('/')->middleware('guest');
+Route::post('login',[loginController::class,'loginWithRequest'])->name('/')->middleware('guest');
 
 Route::get("checkLogin", function(){
-    return "<h1>".Auth::id()."</h1>";
+    return "<h1>".Auth::id()."</h1><br></br>";
 });
 
 

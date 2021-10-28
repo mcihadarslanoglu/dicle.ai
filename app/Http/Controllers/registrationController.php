@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\userFolderModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-//use App\Https\loginController;
 use Auth;
 class registrationController extends Controller
 
@@ -58,6 +58,13 @@ class registrationController extends Controller
         /*-----------------------------------------*/
 
         /*-----------------------------------------*/
+        /**
+         * Sisteme kayıt edilen kullanıcının klasmr ağacını oluşturur.
+         */
+        userFolderModel::initUserFolders($foldername);
+        /*-----------------------------------------*/
+        
+        /*-----------------------------------------*/
         /*Kayıt olan kullanıcının giriş yapma işlemi için kullanıcı bilgileri credentials değişkenine atanır.
         *Daha sonra loginController içerisindeki public static fonksiyon çağırılarak kullanıcıyı sisteme giriş yaptırılır.
         *credentials değişkeni kullanıcının email ve password bilgilerini içerir.
@@ -66,6 +73,7 @@ class registrationController extends Controller
         return loginController::loginWithParameters($credentials);
         /*-----------------------------------------*/
        
+        
     
       
         
@@ -88,7 +96,9 @@ class registrationController extends Controller
         }
     }
     /*-----------------------------------------*/
-    
+    static function test(){
+        return 'test';
+    }
 } 
  
  
