@@ -13,7 +13,7 @@ class registrationController extends Controller
 
     public function create()
     {
-        return view('create');
+        return view('auth');
     }
 
     public function store()
@@ -46,7 +46,8 @@ class registrationController extends Controller
          * Bu email adresinin daha önce kullanılıp kullanılmadığı kontrol edilir.
          */
         if($this->existsUser($email)){
-            return 'Bu email adresi zaten sistemde kayıtlı !';
+            //return 'Bu email adresi zaten sistemde kayıtlı !';
+            return redirect()->back()->withErrors(['msg' => 'Bu email adresi ile daha önce kayıt yapılmış !']);
         }
         /*-----------------------------------------*/
         

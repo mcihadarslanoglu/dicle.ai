@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registrationController;
 use App\Http\Controllers;
 use App\Http\Controllers\loginController;
+use App\Http\Controllers\userFolderController;
 //include 'App\config\pathConfig.php';
 
 /*
@@ -32,9 +33,10 @@ Route::post('register', 'App\Http\Controllers\registrationController@store')->mi
 
 Route::get('/test', 'App\Http\Controllers\registrationController@test');
 
-Route::get('/login',[loginController::class,'loginView'])->name('/')->middleware('guest');
-Route::post('login',[loginController::class,'loginWithRequest'])->name('/')->middleware('guest');
+Route::get('/login',[loginController::class,'loginView'])->middleware('guest');
+Route::post('login',[loginController::class,'loginWithRequest'])->middleware('guest');
 
+Route::get('listFolders',[userFolderController::class,'listFolder']);
 Route::get("checkLogin", function(){
     return "<h1>".Auth::id()."</h1><br></br>";
 });

@@ -52,7 +52,7 @@ class loginController extends Controller{
      * Bu fonksiyon kullanıcının form bilgilerini doldurabileceği bir sayfaya yönlendirir.
      */
     function loginView(){
-        return view('login');
+        return view('auth');
     }
 
 

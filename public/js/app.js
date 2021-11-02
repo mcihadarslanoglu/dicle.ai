@@ -1,9 +1,9 @@
-require("./bootstrap");
+//require("./bootstrap");
 let x = document.getElementById("login");
-let y = document.getElementById("regester");
+let y = document.getElementById("register");
 let z = document.getElementById("btn");
 
-function regester() {
+function register() {
     x.style.left = "-400px";
     y.style.left = "50px";
     z.style.left = "110px";
