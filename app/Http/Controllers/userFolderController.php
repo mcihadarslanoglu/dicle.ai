@@ -79,4 +79,10 @@ class userFolderController extends Controller
     }
     /*-----------------------------------------*/
 
+    function deleteDir(){
+        //$directory = request('directory');
+        $directory = '\\logs'; //--> test için yorum satırını kaldır. 
+        return userFolderModel::deleteDir($directory);
+    }
+
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 use Auth;
-//use App\Models\buildTreeFromDirectory3;
+
 
 config('projectConfigs.pathConfigs');
 
@@ -63,7 +63,9 @@ class userFolderModel extends Model
     public static function createFolder($folderPath, $mode = 0777,$recursive = False){
 
         if(is_dir($folderPath)){
+
             return "HKK1";
+           
         }
         else {
             mkdir($pathname = $folderPath, $mode = $mode, $recursive = $recursive);
@@ -72,25 +74,26 @@ class userFolderModel extends Model
     }
     /*-----------------------------------------*/
 
+    /*-----------------------------------------*/
+    /**
+     * Verilen yolun içeriğini rekürsif olarak siler.
+     */
     public static function deleteDir($directory){
-
-        if (! is_dir($dirPath)) {
-            throw new InvalidArgumentException("$dirPath must be a directory");
-        }
-        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
-            $dirPath .= '/';
-        }
-        $files = glob($dirPath . '*', GLOB_MARK);
+        $dirPath = __USERFOLDERS__.DIRECTORY_SEPARATOR.Auth::user()['foldername'].DIRECTORY_SEPARATOR.$directory.DIRECTORY_SEPARATOR;
+        //return $dirPath;
+        $files = array_diff( scandir($dirPath), array('.', '..') );
         foreach ($files as $file) {
             if (is_dir($file)) {
-                self::deleteDir($file);
+                
+                self::deleteDir($dirPath.$file);
             } else {
-                unlink($file);
+                
+                unlink($dirPath.$file);
             }
         }
         rmdir($dirPath);
     
-        return 0;
+        return $dirPath;
     }
 
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\registrationController;
 use App\Http\Controllers;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\userFolderController;
+use App\Http\Controllers\imageClassificationController;
 //include 'App\config\pathConfig.php';
 
 /*
@@ -36,14 +37,23 @@ Route::get('/test', 'App\Http\Controllers\registrationController@test');
 Route::get('/login',[loginController::class,'loginView'])->middleware('guest');
 Route::post('login',[loginController::class,'loginWithRequest'])->middleware('guest');
 
-Route::get('listFolders',[userFolderController::class,'listFolder']);
+Route::get('listFolders',[userFolderController::class,'listFolder'])->middleware('auth');
+Route::get('deleteDir',[userFolderController::class,'deleteDir'])->middleware('auth'); //-->kullanılırken post yapılacak.
+
+Route::get('upload',function(){
+    return view('upload');
+})->middleware('auth');
+Route::post('upload/classification', [imageClassificationController::class, 'uploadDataset'])->middleware('auth');
+
 Route::get("checkLogin", function(){
-    return "<h1>".Auth::id()."</h1><br></br>";
+    return "<h1>".Auth::user('foldername')."</h1><br></br>";
 });
 
 
-Route::get('/logout', 'App\Http\Controllers\logoutController@logout'); 
-Route::post('/logout', 'App\Http\Controllers\logoutController@logout'); 
+Route::get('/logout', 'App\Http\Controllers\logoutController@logout')->middleware('auth'); 
+Route::post('/logout', 'App\Http\Controllers\logoutController@logout')->middleware('auth'); 
  
  
  
+//28 kasım pazar günü ara rapor son yükleme tarihi.
+//sonraki toplantı 3 aralık.
