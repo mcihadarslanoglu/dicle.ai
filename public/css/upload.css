@@ -1,0 +1,132 @@
+/* start color root */
+:root {
+  --one-color: #003840;
+  --tow-color: #005a5b;
+  --three-color: #007369;
+  --four-color: #008c72;
+  --five-color: #02a676;
+  --white-color: #edf0f1;
+}
+
+/* end color root*/
+body {
+  margin: 0;
+  padding: 0;
+}
+* {
+  box-sizing: border-box;
+}
+a {
+  color: var(--one-color);
+}
+a:hover {
+  color: var(--tow-color);
+}
+
+.content {
+  position: relative;
+}
+.layout {
+  display: flex;
+  gap: 20px;
+  height: 100vh;
+}
+
+.side,
+.main {
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+.side {
+  width: 300px;
+}
+.main {
+  flex: 1;
+}
+
+/* list */
+.list,
+.inline-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.inline-list {
+  display: flex;
+}
+.inline-list > li:not(:last-of-type)::after {
+  content: "/";
+  margin: 0 5px;
+}
+/* list */
+
+/* path content */
+.path {
+  background-color: #fff;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+.path_content {
+  display: flex;
+  gap: 10px 30px;
+  flex-wrap: wrap;
+}
+.path_content .folder,
+.path_content .file {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: var(--five-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+}
+.path_content .file {
+  background-color: var(--one-color);
+}
+/* path content */
+
+.none {
+  display: none;
+}
+
+#menu-right-click,
+#menu-not-target {
+  background-color: #fff;
+  width: fit-content;
+  position: absolute;
+  list-style: none;
+  margin: 0;
+  padding: 5px 0;
+  min-width: 200px;
+  display: none;
+}
+#menu-right-click > li,
+#menu-not-target > li {
+  padding: 5px;
+}
+#menu-right-click > li:hover,
+#menu-not-target > li:hover {
+  background-color: #ccc;
+}
+
+.none {
+  opacity: 0;
+}
+
+#main.drop-active {
+  position: relative;
+  border: 2px dashed #005a5b;
+}
+#main.drop-active::after {
+  content: "Drag Your Files In This Area To Upload";
+  position: absolute;
+  color: #aaa;
+  font-size: 24px;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -63,26 +63,49 @@ class userFolderController extends Controller
      * $onlyFiles: Eğer TRUE değeri verilirse sadece dosyalar listelenir.
      * 
      * */
-    function listFolder($directory,$onlyFolders = TRUE, $onlyFiles = FALSE){
+    function listFolder(){
         
+        //$directory,$onlyFolders = TRUE, $onlyFiles = FALSE
         
         $directory = request('directory');
-        $onlyFiles = request('onlyFiles');
-        $onlyFolders = request($onlyFolders);
+        if (!$directory){
+            $directory = 'test';
+        }
         
+        if (!request('onlyFiles')){
+            $onlyFiles = 'tessst';
+            //return $onlyFiles;
+        }
+
+        if (!request('onlyFolders')){
+            $onlyFolders = 'test';
+        }
+        //$onlyFiles = request('onlyFiles');
+        //$onlyFolders = request($onlyFolders);
+        //return var_dump(request()->all());
+        //return !request('onlyFiles');
         //$directory = '\\image-classification';//--> test için burayı aktif et
         //$onlyFolders = TRUE; //--> test için burayı aktif et
         //$onlyFiles = TRUE; // test için burayı aktif et
         
-        return userFolderModel::listFolder($directory, $onlyFolders,$onlyFiles );
+        return json_encode(userFolderModel::listFolder($directory, $onlyFolders,$onlyFiles ));
         
     }
     /*-----------------------------------------*/
 
+
+    /*-----------------------------------------*/
+    /**
+     * 
+     * PARAMETRELER
+     * $directory: Silinecek olan klasörün ismi -> object-classification/datasets/dataset1/class2
+     * 
+     * Silinen klasörün ismini geri dönderir.
+     */
     function deleteDir(){
-        //$directory = request('directory');
-        $directory = '\\logs'; //--> test için yorum satırını kaldır. 
+        $directory = request('directory');
+        //$directory = '\\logs'; //--> test için yorum satırını kaldır. 
         return userFolderModel::deleteDir($directory);
     }
-
+    /*-----------------------------------------*/
 }

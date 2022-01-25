@@ -1,0 +1,27 @@
+.wizard-steps {
+    border: 1px solid black;
+    background-color: #3895d3;
+}
+
+.step {
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #1261a0;
+    border-left: 1px solid #072f5f;
+    border-right: 1px solid #072f5f;
+    color: white;
+    font-size: 20px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.title {
+    border-bottom: 2px solid black;
+    margin-bottom: 10px;
+}
+
+.active {
+    color: red;
+}

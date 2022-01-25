@@ -1,0 +1,12 @@
+.contextmenu {
+    display: none;
+    position: absolute;
+}
+
+.hide-contextmenu {
+    display: none;
+}
+
+.show-contextmenu {
+    display: initial;
+}

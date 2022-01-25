@@ -6,6 +6,7 @@ use App\Models\userFolderModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+
 use Auth;
 class registrationController extends Controller
 
@@ -39,6 +40,7 @@ class registrationController extends Controller
         /*-----------------------------------------*/
         /*Kullanıcı adına oluşturulan klasörün ismini rastgele seçmek için kullanıcı adı ve email adresi bir hash algoritmasından geçirilir.*/
         $foldername = hash('sha256',$name.$email);
+        //return $foldername;
         /*-----------------------------------------*/
 
         /*-----------------------------------------*/
@@ -59,11 +61,7 @@ class registrationController extends Controller
         /*-----------------------------------------*/
 
         /*-----------------------------------------*/
-        /**
-         * Sisteme kayıt edilen kullanıcının klasmr ağacını oluşturur.
-         */
-        userFolderModel::initUserFolders($foldername);
-        /*-----------------------------------------*/
+        
         
         /*-----------------------------------------*/
         /*Kayıt olan kullanıcının giriş yapma işlemi için kullanıcı bilgileri credentials değişkenine atanır.
@@ -71,9 +69,15 @@ class registrationController extends Controller
         *credentials değişkeni kullanıcının email ve password bilgilerini içerir.
         */
         $credentials = request()->only('email', 'password');
-        return loginController::loginWithParameters($credentials);
+        loginController::loginWithParameters($credentials);
         /*-----------------------------------------*/
        
+        /**
+         * Sisteme kayıt edilen kullanıcının klasmr ağacını oluşturur.
+         */
+        userFolderModel::initUserFolders($foldername);
+        return redirect('checkLogin');
+        /*-----------------------------------------*/
         
     
       
@@ -98,9 +102,14 @@ class registrationController extends Controller
     }
     /*-----------------------------------------*/
     static function test(){
-        return 'test';
-    }
-} 
+        $process = new Process(['python', 'C:\xampp\htdocs\dicle.ai\pythonscripts\image-classification\test.py']);
+        //$process = new Process(['ls', '-lsa']);
+        
+        $process->run();
+        //return var_dump($process);
+        return var_dump($process->getOutput());
+    } 
+}
  
  
  

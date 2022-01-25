@@ -54,20 +54,22 @@ class userFolderModel extends Model
      * Klasör başarıyla oluşturulursa True değerini döndürür.
      * 
      * PARAMETRELER
-     * $folderPath: klasörün oluşturulacağı yerin tam yolu.
+     * $folderPath: klasörün oluşturulacağı yerin relative yolu.
      * $mode: Windowsda bir etkisi olmayan fakat linux sunucularda klasör erişim izni. Varsayılan olarak 0777 yani bütün izinler tam yetkide.
      * $recursive: Eğer yol olarak verilen klasörlerden herhangi biri eksik ise sistem onu da olulstursun mu oluşturmasın mı.
      * 
      */
 
     public static function createFolder($folderPath, $mode = 0777,$recursive = False){
-
+        #return Auth::user();
+        #$folderPath = __USERFOLDERS__.DIRECTORY_SEPARATOR.Auth::user()['foldername'].DIRECTORY_SEPARATOR.$folderPath.DIRECTORY_SEPARATOR;
         if(is_dir($folderPath)){
 
             return "HKK1";
            
         }
         else {
+            
             mkdir($pathname = $folderPath, $mode = $mode, $recursive = $recursive);
             return True;
         }
@@ -77,6 +79,12 @@ class userFolderModel extends Model
     /*-----------------------------------------*/
     /**
      * Verilen yolun içeriğini rekürsif olarak siler.
+     * 
+     * PARAMETRELER
+     * $directory = silinmesi istenen dosya veya klasörün yolu.
+     * 
+     * return true;
+     * 
      */
     public static function deleteDir($directory){
         $dirPath = __USERFOLDERS__.DIRECTORY_SEPARATOR.Auth::user()['foldername'].DIRECTORY_SEPARATOR.$directory.DIRECTORY_SEPARATOR;
@@ -93,8 +101,9 @@ class userFolderModel extends Model
         }
         rmdir($dirPath);
     
-        return $dirPath;
+        return true;
     }
+    /*-----------------------------------------*/
 
 
     /*-----------------------------------------*/
@@ -119,9 +128,9 @@ class userFolderModel extends Model
      *                  ↓
      *              -dataset1
      *              -dataset2
-     *              ...
-     * 
+     *              ... 
      *                  ↑
+     * 
      *      -object-detection
      *              
      *              ↓
@@ -150,31 +159,35 @@ class userFolderModel extends Model
      * $onlyFiles: Eğer TRUE değeri verilirse sadece dosyalar listelenir.
      * 
      * */
-    public static function listFolder($directory, $onlyFolders = TRUE, $onlyFiles = FALSE){
+    public static function listFolder($directory, $onlyFolders = 0, $onlyFiles = 1){
+        //return $directory;
         
         $absolutePath = __USERFOLDERS__.DIRECTORY_SEPARATOR.Auth::user()['foldername'].DIRECTORY_SEPARATOR.$directory;
         
         $folderContentsTemp = scandir(__USERFOLDERS__.DIRECTORY_SEPARATOR.Auth::user()['foldername'].DIRECTORY_SEPARATOR.$directory);
         $folderContentsTemp = array_diff($folderContentsTemp,['..','.']);
         
+        //return var_dump($folderContentsTemp);
         $folderContents = array();
         
         foreach ($folderContentsTemp as $key => $value) {
             
-        
-            if(is_dir($absolutePath.DIRECTORY_SEPARATOR.$value.DIRECTORY_SEPARATOR) && !boolval($onlyFiles)){
-                
+            //return $absolutePath.DIRECTORY_SEPARATOR.$value.DIRECTORY_SEPARATOR;
+            //return (is_dir($absolutePath.DIRECTORY_SEPARATOR.$value.DIRECTORY_SEPARATOR) && boolval($onlyFiles));
+            if(is_dir($absolutePath.DIRECTORY_SEPARATOR.$value.DIRECTORY_SEPARATOR) && boolval($onlyFiles)){
+                //return '1';
                 $folderContents[] = array('name'=>$value,'type'=>'folder','path'=>$directory.DIRECTORY_SEPARATOR.$value);
                 
             }
             
             if(is_file($absolutePath.$value) && ! boolval($onlyFolders)){
+                
                 $folderContents[] = array('name'=>$value,'type'=>'file','path'=>$directory.DIRECTORY_SEPARATOR.$value);
             }
 
         }
     
-       return (json_encode($folderContents));
+       return $folderContents;
         
     }
     /*-----------------------------------------*/

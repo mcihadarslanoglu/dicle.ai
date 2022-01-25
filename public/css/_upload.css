@@ -1,0 +1,62 @@
+.container {
+    position: relative;
+    float: left;
+    width: 100%;
+    height: auto;
+    margin-top: 5%;
+}
+
+.settings-div {
+    border: 1px solid black;
+    float: left;
+    width: 15%;
+    /*margin-right: 10%;
+    margin-left: 10%;*/
+}
+
+.folders-div {
+    width: 75%;
+
+    border: solid black 1px;
+    margin-left: 20%;
+
+    position: relative;
+}
+.folders-path-div {
+    margin-bottom: 10px;
+    background-color: gray;
+    padding: 5px;
+}
+
+.folders-content-div {
+    margin: 20px 10px 10px 10px;
+    border: #909090 1px solid;
+    height: auto;
+    overflow: hidden;
+}
+
+.folder {
+    margin: 5px;
+    float: left;
+}
+.folder-icon {
+    background-image: url("../icon/lock-icon.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    background-position: left;
+    width: fit-content;
+    height: fit-content;
+}
+.folder-icon,
+.folder-name {
+    display: block;
+}
+
+.folder-name {
+    display: inline-block;
+    width: 50px;
+}
+
+.folder:hover {
+    background-color: lightcoral;
+}

@@ -1,0 +1,10 @@
+"""
+    parameters = {'dataset':{'path':r'C:\\xampp\\htdocs\\dicle.ai\\users\\f40b8a370870a98a39097c3faadfd7117ad7f2a7eec81455a54638788c405180\\image-classification\\datasets\\dataset1','color_mode':'gray','validation_split':0.1,'shuffle':True},
+                'augmentation':{'reshape':{'new_height':28, 'new_width':28, 'interpolation':'linear'},'zoom':{'zoomFactor':0.2, 'zoomDirectories':['in'],'interpolation':'cubic'},'rotate':{'angle':45,'rotateDirectories':['left','right']}},
+                'trainingParameters':{'epochs':1,'batch_size':1,'class_mode':'categorical','metrics':{'name':'CategoricalAccuracy'},'optimizer':{'learning_rate':0.001, 'name':'Adadelta'},'loss':{'name':'CategoricalCrossentropy'},'class_mode':{'name':'CategoricalCrossentropy'}},
+                'save':{'path':r'C:\xampp\htdocs\dicle.ai\users\f40b8a370870a98a39097c3faadfd7117ad7f2a7eec81455a54638788c405180\image-classification\trained-datasets','saveName':'dataset1'}}
+    """
+
+
+
+{"augmentation":[],"trainingParameters":{"model":"lenet","epochs":"10","batch_size":"8","metrics":{"name":"CategoricalAccuracy"},"optimizer":{"learning_rate":"0.00004","name":"Adam"},"loss":{"name":"CategoricalCrossentropy"}},"save":{"name":"C:\xampp\htdocs\dicle.ai\users\7752ebfece062cb5f74af41532841d20c7db40f30019962bcbed95fb4a599508\image-classification\trained-datasets\mnist24Test1"},"dataset":{"path":"C:\xampp\htdocs\dicle.ai\users\7752ebfece062cb5f74af41532841d20c7db40f30019962bcbed95fb4a599508\image-classification\datasets\mnist24","color_mode":"GRAY","validation_split":0.1,"shuffle":1}}

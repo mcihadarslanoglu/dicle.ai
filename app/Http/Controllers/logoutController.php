@@ -15,7 +15,7 @@ class logoutController extends Controller{
      */
     function logout(){
         Auth::logout();
-        return redirect("checkLogin");
+        return redirect("home");
 
     }
    

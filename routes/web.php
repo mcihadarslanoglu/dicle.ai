@@ -23,10 +23,11 @@ use App\Http\Controllers\imageClassificationController;
 
 
 Route::get('/home', function(){
-    return 'home';
+    //return view("layouts.header");
+    return View::make('layouts.header')->nest('footer','layouts.footer');
 });
 Route::post('/home', function(){
-    return 'home';
+    return '@include("layouts.header")';
 });
 
 Route::get('/register', 'App\Http\Controllers\registrationController@create')->middleware('guest');
@@ -37,23 +38,32 @@ Route::get('/test', 'App\Http\Controllers\registrationController@test');
 Route::get('/login',[loginController::class,'loginView'])->middleware('guest');
 Route::post('login',[loginController::class,'loginWithRequest'])->middleware('guest');
 
-Route::get('listFolders',[userFolderController::class,'listFolder'])->middleware('auth');
+Route::post('listFolders',[userFolderController::class,'listFolder'])->middleware('auth');
 Route::get('deleteDir',[userFolderController::class,'deleteDir'])->middleware('auth'); //-->kullanılırken post yapılacak.
 
-Route::get('upload',function(){
+Route::get('classification/upload',function(){
     return view('upload');
 })->middleware('auth');
-Route::post('upload/classification', [imageClassificationController::class, 'uploadDataset'])->middleware('auth');
+Route::post('classification/upload', [imageClassificationController::class, 'uploadDataset'])->middleware('auth');
 
 Route::get("checkLogin", function(){
     return "<h1>".Auth::user('foldername')."</h1><br></br>";
 });
 
+Route::get('checkPermission', [imageClassificationController::class,'train']);
+
 
 Route::get('/logout', 'App\Http\Controllers\logoutController@logout')->middleware('auth'); 
 Route::post('/logout', 'App\Http\Controllers\logoutController@logout')->middleware('auth'); 
- 
- 
- 
-//28 kasım pazar günü ara rapor son yükleme tarihi.
-//sonraki toplantı 3 aralık.
+
+/*Route::get('/classification/train', function(){
+    return view('classificationTrain');
+})->middleware('auth'); 
+*/
+
+Route::get('classification/train', [imageClassificationController::class, 'trainView']); 
+
+Route::post('classification/train', [imageClassificationController::class, 'train']); 
+
+
+

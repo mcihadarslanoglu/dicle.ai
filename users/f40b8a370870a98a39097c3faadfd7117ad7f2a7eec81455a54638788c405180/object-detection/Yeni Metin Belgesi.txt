@@ -1,0 +1,1 @@
+{'klasör1':{'path':'nesne tespiti/klasör1','type':'folder'}}
